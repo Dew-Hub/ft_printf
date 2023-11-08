@@ -6,55 +6,55 @@
 /*   By: buonturk <buonturk@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:57:21 by buonturk          #+#    #+#             */
-/*   Updated: 2023/11/06 22:57:23 by buonturk         ###   ########.fr       */
+/*   Updated: 2023/11/08 09:22:11 by buonturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_int(int w)
+int	ft_int(int i)
 {
 	int	leng;
 	int	tmp;
 
 	leng = 0;
-	if (w == 0)
+	if (i == 0)
 		return (write(1, "0", 1));
-	if (w == -2147483648)
+	if (i == -2147483648)
 		return (write(1, "-2147483648", 11));
-	if (w < 0)
+	if (i < 0)
 	{
 		if (write(1, "-", 1) == -1)
 			return (-1);
 		leng++;
-		w *= -1;
+		i *= -1;
 	}
-	if (w >= 10)
+	if (i >= 10)
 	{
-		tmp = ft_int(w / 10);
+		tmp = ft_int(i / 10);
 		if (tmp == -1)
 			return (-1);
 		leng += tmp;
 	}
-	if (write(1, &"0123456789"[w % 10], 1) == -1)
+	if (write(1, &"0123456789"[i % 10], 1) == -1)
 		return (-1);
 	return (leng + 1);
 }
 
-int	ft_unsigned(unsigned int w)
+int	ft_unsigned(unsigned int i)
 {
 	int	leng;
 	int	tmp;
 
 	leng = 0;
-	if (w >= 10)
+	if (i >= 10)
 	{
-		tmp = ft_unsigned(w / 10);
+		tmp = ft_unsigned(i / 10);
 		if (tmp == -1)
 			return (-1);
 		leng += tmp;
 	}
-	if (write(1, &"0123456789"[w % 10], 1) == -1)
+	if (write(1, &"0123456789"[i % 10], 1) == -1)
 		return (-1);
 	return (leng + 1);
 }
@@ -78,33 +78,33 @@ int	ft_string(char *str)
 	return (i);
 }
 
-int	ft_hex(unsigned int d, char w)
+int	ft_hex(unsigned int i, char c)
 {
 	int	leng;
 	int	tmp;
 
 	leng = 0;
-	if (d >= 16)
+	if (i >= 16)
 	{
-		tmp = ft_hex(d / 16, w);
+		tmp = ft_hex(i / 16, c);
 		if (tmp == -1)
 			return (-1);
 		leng += tmp;
 	}
-	if (w == 'X')
+	if (c == 'X')
 	{
-		if (write(1, &"0123456789ABCDEF"[d % 16], 1) == -1)
+		if (write(1, &"0123456789ABCDEF"[i % 16], 1) == -1)
 			return (-1);
 	}
-	if (w == 'x')
+	if (c == 'x')
 	{
-		if (write(1, &"0123456789abcdef"[d % 16], 1) == -1)
+		if (write(1, &"0123456789abcdef"[i % 16], 1) == -1)
 			return (-1);
 	}
 	return (leng + 1);
 }
 
-int	ft_point(unsigned long w, int i)
+int	ft_point(unsigned long j, int i)
 {
 	int	leng;
 	int	tmp;
@@ -117,14 +117,14 @@ int	ft_point(unsigned long w, int i)
 		i = 0;
 		leng += 2;
 	}
-	if (w >= 16)
+	if (j >= 16)
 	{
-		tmp = ft_point(w / 16, i);
+		tmp = ft_point(j / 16, i);
 		if (tmp == -1)
 			return (-1);
 		leng += tmp;
 	}
-	if (write(1, &"0123456789abcdef"[w % 16], 1) == -1)
+	if (write(1, &"0123456789abcdef"[j % 16], 1) == -1)
 		return (-1);
 	return (leng + 1);
 }

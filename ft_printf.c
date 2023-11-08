@@ -6,7 +6,7 @@
 /*   By: buonturk <buonturk@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:57:27 by buonturk          #+#    #+#             */
-/*   Updated: 2023/11/06 22:57:29 by buonturk         ###   ########.fr       */
+/*   Updated: 2023/11/08 09:22:13 by buonturk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,34 @@ int	ft_printf(const char *str, ...)
 	return (leng);
 }
 
-int	ft_check(char str)
+int	ft_check(char c)
 {
-	if (str == 'c' || str == 'd' || str == 'i' || str == 'u' || str == '%'
-		|| str == 's' || str == 'x' || str == 'X' || str == 'p')
+	if (c == 'c' || c == 'd' || c == 'i' || c == 'u' || c == '%'
+		|| c == 's' || c == 'x' || c == 'X' || c == 'p')
 		return (1);
 	return (0);
 }
 
-int	ft_putchar(char x)
+int	ft_putchar(char c)
 {
-	return (write(1, &x, 1));
+	return (write(1, &c, 1));
 }
 
-int	ft_format(va_list *args, char w)
+int	ft_format(va_list *args, char c)
 {
-	if (w == 'c')
+	if (c == 'c')
 		return (ft_putchar(va_arg((*args), int)));
-	else if (w == '%')
+	else if (c == '%')
 		return (ft_putchar('%'));
-	else if (w == 'd' || w == 'i')
+	else if (c == 'd' || c == 'i')
 		return (ft_int(va_arg((*args), int)));
-	else if (w == 'u')
+	else if (c == 'u')
 		return (ft_unsigned(va_arg((*args), unsigned int)));
-	else if (w == 's')
+	else if (c == 's')
 		return (ft_string(va_arg((*args), char *)));
-	else if (w == 'X' || w == 'x')
-		return (ft_hex(va_arg((*args), unsigned int), w));
-	else if (w == 'p')
+	else if (c == 'X' || c == 'x')
+		return (ft_hex(va_arg((*args), unsigned int), c));
+	else if (c == 'p')
 		return (ft_point(va_arg((*args), unsigned long), 1));
 	else
 		return (0);
